@@ -6,6 +6,11 @@ minetest.register_node('spleef:soft_block', {
 	groups = { oddly_breakable_by_hand = 3 }
 })
 
+minetest.register_node('spleef:hard_block', {
+	description = 'Hard Block',
+	tiles = { 'spleef_hard_block.png' }
+})
+
 local data = {}
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
@@ -19,7 +24,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				x_global = minp.x + x
 				z_global = minp.z + z
 				pos = area:index(x_global, minp.y, z_global)
-				data[pos] = minetest.get_content_id("spleef:soft_block")
+				if x_global > -3 and x_global < 3 and z_global > -3 and z_global < 3 then
+					data[pos] = minetest.get_content_id("spleef:hard_block")
+				else
+					data[pos] = minetest.get_content_id("spleef:soft_block")
+				end
 			end
 		end
 
