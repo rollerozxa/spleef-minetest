@@ -58,3 +58,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 end)
 	end
 end)
+
+minetest.register_on_joinplayer(function(player)
+	player:hud_set_hotbar_itemcount(5)
+end)
