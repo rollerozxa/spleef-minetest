@@ -11,14 +11,22 @@ minetest.register_node('spleef:hard_block', {
 	tiles = { 'spleef_hard_block.png' }
 })
 
+minetest.register_node('spleef:rollerium_gas', {
+	description = 'ROllerium Gas',
+	tiles = { 'blank.png' },
+	damage_per_second = 20,
+	drawtype = 'airlike'
+})
+
 local data = {}
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
-	if minp.y == 48 then
-		local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
-		local area = VoxelArea:new{MinEdge = emin, MaxEdge = emax}
-		vm:get_data(data)
+	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
+	local area = VoxelArea:new{MinEdge = emin, MaxEdge = emax}
+	vm:get_data(data)
 
+	-- Main spleef layer
+	if minp.y == 48 then
 		for x = 0, 79 do
 			for z = 0, 79 do
 				x_global = minp.x + x
@@ -31,8 +39,22 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				end
 			end
 		end
+	end
 
-		vm:set_data(data)
-		vm:write_to_map()
+	-- ROllerium Gas
+	if minp.y == -32 then
+		for x = 0, 79 do
+			for z = 0, 79 do
+				x_global = minp.x + x
+				z_global = minp.z + z
+				pos = area:index(x_global, 0, z_global)
+				data[pos] = minetest.get_content_id("spleef:rollerium_gas")
+			end
+		end
+	end
+
+	vm:set_data(data)
+	vm:write_to_map()
+end)
 	end
 end)
