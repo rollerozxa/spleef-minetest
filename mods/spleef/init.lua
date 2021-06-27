@@ -3,7 +3,11 @@ dofile(minetest.get_modpath("spleef") .. "/hand.lua")
 minetest.register_node('spleef:soft_block', {
 	description = 'Soft Block',
 	tiles = { 'spleef_soft_block.png' },
-	groups = { oddly_breakable_by_hand = 3 }
+	groups = { oddly_breakable_by_hand = 3 },
+	drop = "",
+	after_destruct = function(pos, oldnode)
+		minetest.place_node({ x = pos.x, y = pos.y + 75, z = pos.z}, {name = "spleef:reset_timer"})
+	end
 })
 
 minetest.register_node('spleef:hard_block', {
@@ -17,6 +21,21 @@ minetest.register_node('spleef:rollerium_gas', {
 	damage_per_second = 20,
 	drawtype = 'airlike'
 })
+
+minetest.register_node('spleef:reset_timer', {
+	description = 'Reset Timer Node (Internal)',
+	tiles = { 'blank.png' },
+	drawtype = 'airlike',
+	on_construct = function(pos)
+		timer = minetest.get_node_timer(pos)
+		timer:start(5)
+	end,
+	on_timer = function(pos, elapsed)
+		minetest.place_node({ x = pos.x, y = pos.y - 73, z = pos.z}, {name = "spleef:soft_block"})
+		minetest.remove_node(pos)
+	end
+})
+
 
 local data = {}
 
