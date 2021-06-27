@@ -23,18 +23,6 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		end
 	end
 
-	-- ROllerium Gas
-	if minp.y == -32 then
-		for x = 0, 79 do
-			for z = 0, 79 do
-				x_global = minp.x + x
-				z_global = minp.z + z
-				pos = area:index(x_global, 0, z_global)
-				data[pos] = minetest.get_content_id("spleef:rollerium_gas")
-			end
-		end
-	end
-
 	vm:set_data(data)
 	vm:write_to_map()
 end)

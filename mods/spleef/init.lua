@@ -17,13 +17,6 @@ minetest.register_node('spleef:hard_block', {
 	tiles = { 'spleef_hard_block.png' }
 })
 
-minetest.register_node('spleef:rollerium_gas', {
-	description = 'ROllerium Gas',
-	tiles = { 'blank.png' },
-	damage_per_second = 20,
-	drawtype = 'airlike'
-})
-
 minetest.register_node('spleef:reset_timer', {
 	description = 'Reset Timer Node (Internal)',
 	tiles = { 'blank.png' },
@@ -44,5 +37,15 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	if player_pos.x > -4 and player_pos.x < 4 and player_pos.z > -4 and player_pos.z < 4 then
 		minetest.chat_send_player(digger:get_player_name(), minetest.colorize("#ff0000", "Go out of the safe area first!"))
 		minetest.place_node({ x = pos.x, y = pos.y + 1, z = pos.z }, oldnode)
+	end
+end)
+
+minetest.register_globalstep(function(dtime)
+	for key, player in ipairs(minetest.get_connected_players()) do
+		playerpos = player:get_pos()
+
+		if playerpos.y < 16 then
+			player:set_hp(0, 'uwu')
+		end
 	end
 end)
