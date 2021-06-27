@@ -8,7 +8,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	vm:get_data(data)
 
 	-- Main spleef layer
-	if minp.y == 48 then
+	if minp.y == -32 then
 		for x = 0, 79 do
 			for z = 0, 79 do
 				x_global = minp.x + x

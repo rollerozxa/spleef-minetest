@@ -51,7 +51,7 @@ minetest.register_globalstep(function(dtime)
 	for key, player in ipairs(minetest.get_connected_players()) do
 		playerpos = player:get_pos()
 
-		if playerpos.y < 16 then
+		if playerpos.y < -48 then
 			player:set_hp(0, 'void')
 		end
 	end
