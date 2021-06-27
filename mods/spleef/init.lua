@@ -56,6 +56,12 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	vm:set_data(data)
 	vm:write_to_map()
 end)
+minetest.register_on_dignode(function(pos, oldnode, digger)
+	player_pos = digger:get_pos()
+
+	if player_pos.x > -4 and player_pos.x < 4 and player_pos.z > -4 and player_pos.z < 4 then
+		minetest.chat_send_player(digger:get_player_name(), minetest.colorize("#ff0000", "Go out of the safe area first!"))
+		minetest.place_node({ x = pos.x, y = pos.y + 1, z = pos.z }, oldnode)
 	end
 end)
 
