@@ -31,6 +31,13 @@ minetest.register_node('spleef:reset_timer', {
 	end
 })
 
+minetest.register_on_player_hpchange(function(player, hp_change, reason)
+	if reason.type == 'fall' then
+		return 0
+	end
+	return hp_change
+end, true)
+
 minetest.register_on_dignode(function(pos, oldnode, digger)
 	player_pos = digger:get_pos()
 
@@ -45,7 +52,7 @@ minetest.register_globalstep(function(dtime)
 		playerpos = player:get_pos()
 
 		if playerpos.y < 16 then
-			player:set_hp(0, 'uwu')
+			player:set_hp(0, 'void')
 		end
 	end
 end)
