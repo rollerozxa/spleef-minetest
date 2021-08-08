@@ -1,7 +1,3 @@
-dofile(minetest.get_modpath('spleef') .. "/gui.lua")
-dofile(minetest.get_modpath("spleef") .. "/hand.lua")
-dofile(minetest.get_modpath('spleef') .. "/mapgen.lua")
-
 minetest.register_node('spleef:soft_block', {
 	description = 'Soft Block',
 	tiles = { 'spleef_soft_block.png' },
@@ -63,3 +59,7 @@ minetest.register_globalstep(function(dtime)
 		end
 	end
 end)
+
+dofile(minetest.get_modpath('spleef') .. "/gui.lua")
+dofile(minetest.get_modpath("spleef") .. "/hand.lua")
+dofile(minetest.get_modpath('spleef') .. "/mapgen.lua")
