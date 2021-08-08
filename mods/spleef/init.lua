@@ -24,7 +24,7 @@ minetest.register_node('spleef:reset_timer', {
 	drawtype = 'airlike',
 	on_construct = function(pos)
 		timer = minetest.get_node_timer(pos)
-		timer:start(5)
+		timer:start(120)
 	end,
 	on_timer = function(pos, elapsed)
 		minetest.place_node({ x = pos.x, y = pos.y - 73, z = pos.z}, {name = "spleef:soft_block"})
