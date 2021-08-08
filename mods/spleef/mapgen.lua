@@ -16,8 +16,8 @@ local mg = {
 		soft = minetest.get_content_id("spleef:soft_block"),
 		bricks = minetest.get_content_id("spleef:bricks"),
 	},
-	size = 64,
-	plat = 3
+	size = minetest.settings:get('spleef_map_size') or 64,
+	plat = minetest.settings:get('spleef_safe_area_size') or 3,
 }
 
 minetest.register_on_generated(function(minp, maxp, blockseed)

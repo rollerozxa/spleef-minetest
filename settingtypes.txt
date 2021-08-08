@@ -1,0 +1,6 @@
+[Map]
+#	Size of the map, in amount of nodes outwards from the center
+spleef_map_size (Map size) int 64 0 30000
+
+#	Size of the safe spawn area, in amount of nodes outwards from the center
+spleef_map_safe_area_size (Safe area size) int 3 0 30000
