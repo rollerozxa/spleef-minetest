@@ -1,5 +1,13 @@
 --- Mapgen code.
 
+minetest.register_on_joinplayer(function(player)
+	player:set_sky({
+		base_color = "#333355",
+		type = 'plain',
+		clouds = false
+	})
+end)
+
 local data = {}
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
