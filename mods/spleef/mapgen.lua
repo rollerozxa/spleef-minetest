@@ -28,13 +28,13 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	for z = 0, 79 do
 		for y = 0, 79 do
 			for x = 0, 79 do
-				pos = {
+				local pos = {
 					x = minp.x + x,
 					y = minp.y + y,
 					z = minp.z + z
 				}
 
-				posi = area:index(pos.x, pos.y, pos.z)
+				local posi = area:index(pos.x, pos.y, pos.z)
 
 				if pos.y == -32 and (pos.x >= -mg.size and pos.x <= mg.size) and (pos.z >= -mg.size and pos.z <= mg.size) then
 					if (pos.x > -mg.plat and pos.x < mg.plat) and (pos.z > -mg.plat and pos.z < mg.plat) then

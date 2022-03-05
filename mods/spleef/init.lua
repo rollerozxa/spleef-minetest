@@ -23,7 +23,7 @@ minetest.register_node('spleef:reset_timer', {
 	tiles = { 'blank.png' },
 	drawtype = 'airlike',
 	on_construct = function(pos)
-		timer = minetest.get_node_timer(pos)
+		local timer = minetest.get_node_timer(pos)
 		timer:start(120)
 	end,
 	on_timer = function(pos, elapsed)
@@ -40,7 +40,7 @@ minetest.register_on_player_hpchange(function(player, hp_change, reason)
 end, true)
 
 minetest.register_on_dignode(function(pos, oldnode, digger)
-	player_pos = digger:get_pos()
+	local player_pos = digger:get_pos()
 
 	if player_pos.x > -3 and player_pos.x < 3 and player_pos.z > -3 and player_pos.z < 3 then
 		minetest.chat_send_player(digger:get_player_name(), minetest.colorize("#ff0000", "Go out of the safe area first!"))
@@ -52,9 +52,9 @@ end)
 
 minetest.register_globalstep(function(dtime)
 	for key, player in ipairs(minetest.get_connected_players()) do
-		playerpos = player:get_pos()
+		local playerpos = player:get_pos()
 
-		if playerpos.y < -48 then
+		if playerpos.y < -35 then
 			player:set_hp(0, 'void')
 		end
 	end
