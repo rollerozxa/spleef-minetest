@@ -12,10 +12,7 @@ minetest.register_node('spleef:hard_block', {
 
 minetest.register_node('spleef:bricks', {
 	description = 'Bricks',
-	tiles = { 'spleef_brick.png' },
-	on_rightclick = function(pos)
-		minetest.log(dump(pos))
-	end
+	tiles = { 'spleef_brick.png' }
 })
 
 minetest.register_node('spleef:reset_timer', {
