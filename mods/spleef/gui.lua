@@ -41,8 +41,8 @@ function get_inventory_formspec(name)
 		label[7.2,4.5;Leaderboard:]
 		textlist[7,4.9;5.9,5.1;;1st - Player (0/0),2nd - Player (0/0),3rd - Player (0/0),4th - Player (0/0),5th - Player (0/0),6th - Player (0/0),7th - Player (0/0),8th - Player (0/0),9th - Player (0/0),10th - Player (0/0);1;false]
 	]], {
-		player_kills = storage:get_int(name.."_kills")
-		player_deaths = storage:get_int(name.."_deaths")
+		player_kills = storage:get_int(name.."_kills"),
+		player_deaths = storage:get_int(name.."_deaths"),
 		player_blocksbroken = storage:get_int(name.."_blocksbroken")
 	})
 end

@@ -1,3 +1,6 @@
+
+storage = minetest.get_mod_storage()
+
 minetest.register_node('spleef:soft_block', {
 	description = 'Soft Block',
 	tiles = { 'spleef_soft_block.png' },
