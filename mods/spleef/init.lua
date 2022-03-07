@@ -40,10 +40,17 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	local player_pos = digger:get_pos()
 
 	if player_pos.x > -3 and player_pos.x < 3 and player_pos.z > -3 and player_pos.z < 3 then
+		-- Prevent people from breaking nodes if they're still in the safe area.
 		minetest.chat_send_player(digger:get_player_name(), minetest.colorize("#ff0000", "Go out of the safe area first!"))
 		minetest.place_node({ x = pos.x, y = pos.y + 1, z = pos.z }, oldnode)
 	elseif oldnode.name == 'spleef:soft_block' then
-		minetest.place_node({ x = pos.x, y = pos.y + 75, z = pos.z}, {name = "spleef:reset_timer"})
+		local name = digger:get_player_name()
+
+		increment_blocksbroken(name)
+
+		-- Timer node to regenerate the world.
+		local tempos = { x = pos.x, y = pos.y + 76, z = pos.z }
+		minetest.place_node(tempos, {name = "spleef:reset_timer"})
 	end
 end)
 
@@ -61,3 +68,4 @@ dofile(minetest.get_modpath('spleef') .. "/gui.lua")
 dofile(minetest.get_modpath("spleef") .. "/hand.lua")
 dofile(minetest.get_modpath('spleef') .. "/mapgen.lua")
 dofile(minetest.get_modpath('spleef') .. "/player_model.lua")
+dofile(minetest.get_modpath('spleef') .. "/stats.lua")
