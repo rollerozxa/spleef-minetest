@@ -54,6 +54,10 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 		-- Timer node to regenerate the world.
 		local tempos = { x = pos.x, y = pos.y + 76, z = pos.z }
 		minetest.place_node(tempos, {name = "spleef:reset_timer"})
+		tempos.y = tempos.y - 1
+		-- Set breaker meta so kills can be counted.
+		local meta = minetest.get_meta(tempos)
+		meta:set_string("breaker", name)
 	end
 end)
 
@@ -61,8 +65,9 @@ minetest.register_globalstep(function(dtime)
 	for key, player in ipairs(minetest.get_connected_players()) do
 		local playerpos = player:get_pos()
 
-		if playerpos.y < -35 then
+		if playerpos.y < -35 and player:get_hp() > 0 then
 			player:set_hp(0, 'void')
+			death_stats(playerpos, player:get_player_name())
 		end
 	end
 end)
