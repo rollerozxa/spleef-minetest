@@ -22,13 +22,10 @@ minetest.register_node('spleef:reset_timer', {
 	description = 'Reset Timer Node (Internal)',
 	tiles = { 'blank.png' },
 	drawtype = 'airlike',
-	on_construct = function(pos)
-		local timer = minetest.get_node_timer(pos)
-		timer:start(120)
-	end,
+	pointable = false,
+	walkable = false,
 	on_timer = function(pos, elapsed)
-		minetest.place_node({ x = pos.x, y = pos.y - 73, z = pos.z}, {name = "spleef:soft_block"})
-		minetest.remove_node(pos)
+		minetest.swap_node(pos, {name = "spleef:soft_block"})
 	end
 })
 
@@ -52,11 +49,11 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 		increment_blocksbroken(name)
 
 		-- Timer node to regenerate the world.
-		local tempos = { x = pos.x, y = pos.y + 76, z = pos.z }
-		minetest.place_node(tempos, {name = "spleef:reset_timer"})
-		tempos.y = tempos.y - 1
+		minetest.swap_node(pos, {name = "spleef:reset_timer"})
+		local timer = minetest.get_node_timer(pos)
+		timer:start(120)
 		-- Set breaker meta so kills can be counted.
-		local meta = minetest.get_meta(tempos)
+		local meta = minetest.get_meta(pos)
 		meta:set_string("breaker", name)
 	end
 end)
