@@ -24,19 +24,19 @@ function get_inventory_formspec(name)
 		label[2.4,4.5;Your Statistics:]
 
 		label[1.3,5.5;Kills:]
-		label[4.4,5.5;${player_kills}]
+		label[4.2,5.5;${player_kills}]
 
 		label[1.3,6.5;Deaths:]
-		label[4.4,6.5;${player_deaths}]
+		label[4.2,6.5;${player_deaths}]
 
 		label[1.3,7.5;Ratio:]
 		label[4.2,7.5;N/A]
 
 		label[1.3,8.5;Blocks Broken:]
-		label[4.4,8.5;${player_blocksbroken}]
+		label[4.2,8.5;${player_blocksbroken}]
 
 		label[2.2,9.5;Your Rank:]
-		label[4.1,9.5;137th]
+		label[4.2,9.5;137th]
 
 		label[7.2,4.5;Leaderboard:]
 		textlist[7,4.9;5.9,5.1;;1st - Player (0/0),2nd - Player (0/0),3rd - Player (0/0),4th - Player (0/0),5th - Player (0/0),6th - Player (0/0),7th - Player (0/0),8th - Player (0/0),9th - Player (0/0),10th - Player (0/0);1;false]
@@ -56,4 +56,10 @@ minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 
 	player:set_inventory_formspec(get_inventory_formspec(name))
+end)
+
+minetest.register_globalstep(function(dtime)
+	for key, player in ipairs(minetest.get_connected_players()) do
+		player:set_inventory_formspec(get_inventory_formspec(player:get_player_name()))
+	end
 end)
